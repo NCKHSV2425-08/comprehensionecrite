@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expressions verbales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        .navbar {
+            background: #333;
+            padding: 15px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0055A4;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0055A4;
+            color: white;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #EF4135;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">📖 Lectures en Français</div>
+    <div class="container">
+        <h1>Expressions verbales</h1>
+        <h2 id="title">Titre de l'Article</h2> <!-- Tiêu đề bài đọc -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Expressions verbales</th>
+                    <th>Sens</th>
+                </tr>
+            </thead>
+            <tbody id="vocab-list">
+                <!-- Dữ liệu sẽ được thêm vào đây -->
+            </tbody>
+        </table>
+        <button class="btn" onclick="goBack()">⬅ Trở về</button>
+    </div>
+
+    <script>
+        // Dữ liệu bài đọc và từ vựng (fix cứng)
+        const articles = {
+            1: { title: "Vacances : les Français arrivent-ils à déconnecter du travail ?" },
+            2: { title: "Prendre des vacances améliore la productivité" },
+            3: { title: "Running : est-ce efficace de ne courir que le dimanche ?" },
+            4: { title: "Randonnées urbaines, la nouvelle mode" },
+            5: { title: "Y a-t-il des sports de filles et des sports de garçons?" },
+            6: { title: "L'activité physique améliore les performances scolaires" },
+            7: { title: "Le bio pour les chiens, on essaye ou pas ?" },
+            8: { title: "La population de loups augmente en France" },
+            9: { title: "Les Français préfèrent toujours les chats aux chiens" },
+            10: { title: "Mon collègue de boulot est un robot" },
+            11: { title: "Les stages ne suffisent pas à décrocher un emploi" },
+            12: { title: "Choisir de travailler le week-end n'est pas une tare" },
+            13: { title: "L'école commence trop tôt le matin et mine ainsi le succès scolaire" },
+            14: { title: "Les devoirs à la maison sont bénéfiques pour s'entraîner" },
+            15: { title: "Ces lycéens qui passent leurs vacances à l'école" },
+            16: { title: "En Australie, sept adolescents arrêtés dans des opérations antiterroristes" },
+            17: { title: "Faut-il prendre une année sabbatique après le bac ?" },
+            18: { title: "Un jeune sur dix en grande difficulté de lecture" },
+            19: { title: "Mieux vaut manger moins de viandes et plus de légumineuses" },
+            20: { title: "Sandwich: le jambon-beurre perd du terrain" },
+            21: { title: "Cuisiner, c'est bon pour notre santé mentale !" },
+            22: { title: "Le port du casque en voiture bientôt obligatoire à New York?" },
+            23: { title: "Le vélo, transport d’avenir?" },
+            24: { title: "En Écosse, il est désormais interdit de fumer en voiture en présence d'un enfant" },
+            25: { title: "Désormais, le bac se révise sur Youtube" },
+            26: { title: "Les smartphones nuisent aux relations sociales des ados" },
+            27: { title: "Plus d’un jeune sur deux s’est déjà senti harcelé sur les réseaux sociaux" },
+            28: { title: "A Paris, des écoles se mobilisent contre les fermetures de classes prévues à la rentrée prochaine" },
+            29: { title: "Education : les pauvres mis au ban" },
+            30: { title: "Education à la sexualité à l’école : le projet n’est, «en l’état, pas acceptable», fustige le ministre délégué" }
+        };
+
+        const vocabData = {
+            1: [
+                { express: "jeter un coup d’œil à", sens: "liếc nhìn, xem lướt qua" },
+                { express: "parvenir à", sens: "đạt được, làm được" },
+                { express: "être autorisé à", sens: "được phép làm gì" },
+                { express: "couper sa boîte mail", sens: "tắt hòm thư" },
+                { express: "avoir besoin de", sens: "cần thiết" },
+                { express: "être en congés", sens: "đang trong kỳ nghỉ" },
+                { express: "rendre plus floue", sens: "làm mờ ranh giới" },
+                { express: "dire-le à votre boss", sens: "hãy nói điều đó với sếp bạn" }
+            ],
+            2: [
+                { express: "prendre des vacances", sens: "nghỉ phép" },
+                { express: "recharger ses batteries", sens: "nạp lại năng lượng" },
+                { express: "se focaliser sur", sens: "tập trung vào" },
+                { express: "accorder des vacances", sens: "cho phép nghỉ" },
+                { express: "être plus performant", sens: "hiệu quả hơn" },
+                { express: "bénéficier de", sens: "hưởng lợi từ" },
+                { express: "améliorer la santé", sens: "cải thiện sức khoẻ" },
+                { express: "se refléter sur", sens: "phản ánh vào" }
+            ],
+            3: [
+                { express: "faire le point", sens: "đánh giá lại" },
+                { express: "entretenir sa silhouette", sens: "duy trì vóc dáng" },
+                { express: "se muscler", sens: "tăng cơ" },
+                { express: "faire du sport", sens: "tập thể thao" },
+                { express: "s’octroyer une séance", sens: "tự dành cho mình một buổi tập" },
+                { express: "alterner entre", sens: "luân phiên giữa" },
+                { express: "se remettre aux foulées", sens: "quay lại với bước chạy" },
+                { express: "contracter ses abdos", sens: "siết cơ bụng" }
+            ],
+            4: [
+                { express: "faire une randonnée", sens: "đi bộ đường dài" },
+                { express: "appréhender l’habitat", sens: "tiếp cận môi trường sống" },
+                { express: "se transformer par l’homme", sens: "bị con người thay đổi" },
+                { express: "proposer un circuit", sens: "đề xuất một lộ trình" },
+                { express: "être en construction", sens: "đang được xây dựng" },
+                { express: "voir le jour", sens: "xuất hiện, ra đời" },
+                { express: "être à cheval entre", sens: "giao thoa giữa hai yếu tố" },
+                { express: "fabriquer la ville sur la ville", sens: "tái thiết đô thị" }
+            ],
+            5: [
+                { express: "parler de", sens: "nói về" },
+                { express: "s’inscrire à une activité", sens: "đăng ký tham gia hoạt động" },
+                { express: "être confronté à", sens: "đối mặt với" },
+                { express: "franchir un palier", sens: "vượt qua một giai đoạn" },
+                { express: "avoir besoin de prouver", sens: "cần chứng tỏ bản thân" },
+                { express: "changer les représentations", sens: "thay đổi nhận thức" },
+                { express: "faire évoluer les choses", sens: "thay đổi tình hình" },
+                { express: "favoriser la mixité", sens: "thúc đẩy sự hòa nhập" }
+            ],
+            6: [
+                { express: "faire du sport", sens: "chơi thể thao" },
+                { express: "mettre au sport", sens: "cho con đi tập thể thao" },
+                { express: "booster les performances", sens: "tăng hiệu quả học tập" },
+                { express: "stimuler l’estime de soi", sens: "kích thích lòng tự trọng" },
+                { express: "tenir compte de", sens: "tính đến, xét đến" },
+                { express: "renforcer les liens sociaux", sens: "tăng cường kết nối xã hội" },
+                { express: "développer des compétences", sens: "phát triển kỹ năng" },
+                { express: "prévenir les risques", sens: "phòng ngừa rủi ro" }
+            ],
+            7: [
+                { express: "travailler main dans la main", sens: "làm việc cùng nhau" },
+                { express: "être en plein essor", sens: "đang phát triển mạnh" },
+                { express: "faire face à", sens: "đối mặt với" },
+                { express: "prendre le relais", sens: "thay thế, tiếp quản" },
+                { express: "délester de tâches", sens: "giảm tải công việc" },
+                { express: "planche sur", sens: "nghiên cứu, làm việc về" },
+                { express: "mettre en œuvre", sens: "triển khai thực hiện" },
+                { express: "poser la question de", sens: "đặt ra vấn đề về" }
+            ],
+            8: [
+                { express: "faire un stage", sens: "thực tập" },
+                { express: "décrocher un emploi", sens: "tìm được việc làm" },
+                { express: "être mal encadré", sens: "thiếu sự hướng dẫn" },
+                { express: "percevoir un salaire", sens: "nhận lương" },
+                { express: "servir de tremplin", sens: "đóng vai trò như bàn đạp" },
+                { express: "être en formation", sens: "đang trong quá trình đào tạo" },
+                { express: "avoir le sentiment de", sens: "cảm thấy rằng" },
+                { express: "rimer avec", sens: "gắn liền với" }
+            ],
+            9: [
+                { express: "avoir mauvaise presse", sens: "bị mang tiếng xấu" },
+                { express: "passer pour", sens: "bị coi là" },
+                { express: "prendre le temps de", sens: "dành thời gian để" },
+                { express: "booster une carrière", sens: "thúc đẩy sự nghiệp" },
+                { express: "travailler un peu le week-end", sens: "làm việc nhẹ cuối tuần" },
+                { express: "détruire un mythe", sens: "phá vỡ định kiến" },
+                { express: "être propice à", sens: "thích hợp với" },
+                { express: "faire le choix de", sens: "lựa chọn" }
+            ],
+            10: [
+                { express: "travailler main dans la main", sens: "làm việc cùng nhau" },
+                { express: "être en plein essor", sens: "đang phát triển mạnh" },
+                { express: "faire face à", sens: "đối mặt với" },
+                { express: "prendre le relais", sens: "thay thế, tiếp quản" },
+                { express: "délester de tâches", sens: "giảm tải công việc" },
+                { express: "planche sur", sens: "nghiên cứu, làm việc về" },
+                { express: "mettre en œuvre", sens: "triển khai thực hiện" },
+                { express: "poser la question de", sens: "đặt ra vấn đề về" }
+            ],
+            11: [
+                { express: "faire un stage", sens: "thực tập" },
+                { express: "décrocher un emploi", sens: "tìm được việc làm" },
+                { express: "être mal encadré", sens: "thiếu sự hướng dẫn" },
+                { express: "percevoir un salaire", sens: "nhận lương" },
+                { express: "servir de tremplin", sens: "đóng vai trò như bàn đạp" },
+                { express: "être en formation", sens: "đang trong quá trình đào tạo" },
+                { express: "avoir le sentiment de", sens: "cảm thấy rằng" },
+                { express: "rimer avec", sens: "gắn liền với" }
+            ],
+            12: [
+                { express: "avoir mauvaise presse", sens: "bị mang tiếng xấu" },
+                { express: "passer pour", sens: "bị coi là" },
+                { express: "prendre le temps de", sens: "dành thời gian để" },
+                { express: "booster une carrière", sens: "thúc đẩy sự nghiệp" },
+                { express: "travailler un peu le week-end", sens: "làm việc nhẹ cuối tuần" },
+                { express: "détruire un mythe", sens: "phá vỡ định kiến" },
+                { express: "être propice à", sens: "thích hợp với" },
+                { express: "faire le choix de", sens: "lựa chọn" }
+            ],
+            13: [
+                { express: "avoir du mal à", sens: "gặp khó khăn trong việc" },
+                { express: "se lever tôt", sens: "thức dậy sớm" },
+                { express: "lutter contre", sens: "đấu tranh chống lại" },
+                { express: "en raison de", sens: "do bởi" },
+                { express: "être basé sur", sens: "dựa trên" },
+                { express: "être en faveur de", sens: "ủng hộ" },
+                { express: "être sujet à", sens: "dễ bị mắc phải" },
+                { express: "mettre en œuvre", sens: "thực hiện" }
+            ],
+            14: [
+                { express: "faire ses devoirs", sens: "làm bài tập về nhà" },
+                { express: "avoir des difficultés avec", sens: "gặp khó khăn với" },
+                { express: "percevoir un salaire", sens: "nhận lương" },
+                { express: "acquérir de l'expérience", sens: "tiếp thu kinh nghiệm" },
+                { express: "mettre en place", sens: "thiết lập" },
+                { express: "se connecter à", sens: "kết nối với" },
+                { express: "poser des questions", sens: "đặt câu hỏi" },
+                { express: "se fier à", sens: "tin tưởng vào" }
+            ],
+            15: [
+                { express: "prendre de l'avance", sens: "đi trước" },
+                { express: "sacrifier ses vacances", sens: "hy sinh kỳ nghỉ" },
+                { express: "mettre la pression", sens: "gây áp lực" },
+                { express: "être à la hauteur", sens: "đạt yêu cầu" },
+                { express: "se libérer du stress", sens: "giải tỏa căng thẳng" },
+                { express: "naviguer entre", sens: "chuyển đổi giữa" },
+                { express: "faire le choix de", sens: "lựa chọn" },
+                { express: "être en terminale", sens: "học lớp 12" }
+            ],
+            16: [
+                { express: "adhérer à", sens: "tham gia, ủng hộ" },
+                { express: "constituer un risque", sens: "tạo thành một nguy cơ" },
+                { express: "déclencher une enquête", sens: "mở cuộc điều tra" },
+                { express: "préparer un attentat", sens: "chuẩn bị một cuộc tấn công" },
+                { express: "être en mesure de l'empêcher", sens: "có khả năng ngăn chặn" },
+                { express: "radicalisation des jeunes", sens: "quá trình cực đoan hóa thanh niên" },
+                { express: "a déclenché une émeute", sens: "gây ra một cuộc bạo loạn" },
+                { express: "a appelé à plus de coopération", sens: "kêu gọi tăng cường hợp tác" },
+                { express: "partage une propagande ignoble", sens: "truyền bá tư tưởng xấu xa" },
+                { express: "discute de la manière de provoquer une guerre raciale", sens: "thảo luận cách gây ra một cuộc chiến tranh sắc tộc" }
+            ],
+            17: [
+                { express: "Franchir le pas", sens: "Quyết định thực hiện một bước quan trọng" },
+                { express: "Mettre en valeur", sens: "Làm nổi bật giá trị của điều gì đó" },
+                { express: "S’ouvrir au monde", sens: "Trải nghiệm và khám phá thế giới" },
+                { express: "Gagner en autonomie", sens: "Trở nên tự lập hơn" },
+                { express: "Réfléchir à son avenir", sens: "Suy nghĩ về tương lai của bản thân" },
+                { express: "Postuler à une formation", sens: "Nộp đơn xin học một khóa học" },
+                { express: "Valider ses compétences", sens: "Chứng minh hoặc công nhận kỹ năng" },
+                { express: "Trouver sa voie", sens: "Xác định hướng đi phù hợp cho mình" }
+            ],
+            18: [
+                { express: "être en difficulté", sens: "gặp khó khăn" },
+                { express: "faire part de", sens: "thông báo, chia sẻ" },
+                { express: "parvenir à", sens: "đạt được, làm được" },
+                { express: "être soumis à", sens: "phải trải qua" },
+                { express: "prendre des précautions", sens: "cẩn trọng" },
+                { express: "se caractériser par", sens: "được đặc trưng bởi" },
+                { express: "prélever des informations", sens: "thu thập thông tin" },
+                { express: "varier selon", sens: "thay đổi tùy theo" }
+            ],
+            19: [
+                { express: "manger moins de", sens: "ăn ít hơn" },
+                { express: "renforcer la consommation", sens: "tăng cường việc tiêu thụ" },
+                { express: "faire leur apparition", sens: "xuất hiện" },
+                { express: "mettre en évidence", sens: "làm nổi bật" },
+                { express: "limiter à", sens: "giới hạn ở mức" },
+                { express: "compenser par", sens: "bù đắp bằng" },
+                { express: "privilégier", sens: "ưu tiên chọn" },
+                { express: "diversifier son régime", sens: "đa dạng hóa chế độ ăn uống" }
+            ],
+            20: [
+                { express: "perdre du terrain", sens: "mất vị thế" },
+                { express: "représenter un marché", sens: "đại diện cho thị trường" },
+                { express: "être en baisse", sens: "sụt giảm" },
+                { express: "connaître une hausse", sens: "gặp sự gia tăng" },
+                { express: "passer de... à...", sens: "chuyển từ... sang..." },
+                { express: "monter en gamme", sens: "nâng cấp chất lượng" },
+                { express: "publier un bilan", sens: "công bố báo cáo" },
+                { express: "se vendre à", sens: "được bán với giá" }
+            ],
+            21: [
+                { express: "se mettre aux fourneaux", sens: "bắt đầu vào bếp" },
+                { express: "vivre le moment présent", sens: "sống trọn khoảnh khắc hiện tại" },
+                { express: "réduire le stress", sens: "giảm căng thẳng" },
+                { express: "exprimer ce que l'on ressent", sens: "thể hiện cảm xúc" },
+                { express: "développer la créativité", sens: "phát triển sự sáng tạo" },
+                { express: "jouer sur le bonheur", sens: "tạo ra hạnh phúc" },
+                { express: "s'adonner à", sens: "đắm chìm vào việc gì" },
+                { express: "avoir des bénéfices", sens: "mang lại lợi ích" }
+            ],
+            22: [
+                { express: "porter un casque", sens: "đội mũ bảo hiểm" },
+                { express: "abandonner son véhicule", sens: "bỏ xe cá nhân" },
+                { express: "être lié à", sens: "liên quan đến" },
+                { express: "rendre obligatoire", sens: "bắt buộc" },
+                { express: "réduire le nombre de", sens: "giảm số lượng" },
+                { express: "se déplacer en voiture", sens: "di chuyển bằng xe hơi" },
+                { express: "paralyser le trafic", sens: "làm tắc nghẽn giao thông" },
+                { express: "devenir réalité", sens: "trở thành hiện thực" }
+            ],
+            23: [
+                { express: "faire l’unanimité", sens: "được đồng thuận" },
+                { express: "être en pleine expansion", sens: "đang phát triển mạnh" },
+                { express: "favoriser le développement", sens: "thúc đẩy sự phát triển" },
+                { express: "prendre de la vitesse", sens: "tăng tốc" },
+                { express: "changer la vie", sens: "làm thay đổi cuộc sống" },
+                { express: "briser le monopole", sens: "phá vỡ thế độc quyền" },
+                { express: "encourager ses employés", sens: "khuyến khích nhân viên" },
+                { express: "rembourser une partie des frais", sens: "hoàn trả một phần chi phí" }
+            ],
+            24: [
+                { express: "fumer en voiture", sens: "hút thuốc trong ô tô" },
+                { express: "s’acquitter d’une amende", sens: "nộp phạt" },
+                { express: "être en vigueur", sens: "có hiệu lực" },
+                { express: "lancer un message clair", sens: "gửi đi một thông điệp rõ ràng" },
+                { express: "protéger ses enfants", sens: "bảo vệ con cái" },
+                { express: "s’accumuler à des niveaux dangereux", sens: "tích tụ đến mức nguy hiểm" },
+                { express: "passer devant un tribunal", sens: "ra tòa" },
+                { express: "traduire un manque de considération", sens: "thể hiện sự thiếu quan tâm" }
+            ],
+            25: [
+                { express: "être en pleine révision", sens: "đang trong quá trình ôn tập" },
+                { express: "regarder des vidéos", sens: "xem video" },
+                { express: "faire des révisions", sens: "thực hiện việc ôn tập" },
+                { express: "décrocher le bac", sens: "đạt được bằng tốt nghiệp" },
+                { express: "mettre en œuvre", sens: "thực hiện" },
+                { express: "avoir un crédit auprès de", sens: "có sự tin tưởng từ" },
+                { express: "remplacer le travail effectué", sens: "thay thế công việc đã thực hiện" },
+                { express: "devenir un complément", sens: "trở thành sự bổ sung" }
+            ],
+            26: [
+                { express: "avoir un impact sur", sens: "có ảnh hưởng đến" },
+                { express: "bousculer les habitudes", sens: "làm xáo trộn thói quen" },
+                { express: "se sentir exclu", sens: "cảm thấy bị loại trừ" },
+                { express: "passer du temps à", sens: "dành thời gian để" },
+                { express: "rendre plus difficile", sens: "làm cho khó khăn hơn" },
+                { express: "se connecter à", sens: "kết nối với" },
+                { express: "être à l'origine de", sens: "là nguyên nhân của" },
+                { express: "perdre la confiance en soi", sens: "mất tự tin" }
+            ],
+            27: [
+                { express: "se faire harceler", sens: "bị quấy rối" },
+                { express: "passer trop de temps sur", sens: "dành quá nhiều thời gian trên" },
+                { express: "créer une fausse identité", sens: "tạo danh tính giả" },
+                { express: "avoir un impact sur", sens: "có ảnh hưởng đến" },
+                { express: "être victime de", sens: "là nạn nhân của" },
+                { express: "subir du harcèlement", sens: "chịu đựng sự quấy rối" },
+                { express: "supprimer son profil", sens: "xóa hồ sơ của mình" },
+                { express: "se connecter fréquemment", sens: "kết nối thường xuyên" }
+            ],
+            28: [
+                { express: "être en grève", sens: "tham gia đình công" },
+                { express: "suivre un appel à la grève", sens: "tham gia kêu gọi đình công" },
+                { express: "manifester devant", sens: "biểu tình trước" },
+                { express: "perdre la décharge", sens: "mất quyền miễn nhiệm" },
+                { express: "se refléter dans", sens: "phản ánh trong" },
+                { express: "augmenter la mobilisation", sens: "tăng cường sự huy động" },
+                { express: "faire l’objet de", sens: "trở thành đối tượng của" }
+            ],
+            29: [
+                { express: "être mis au ban", sens: "bị loại bỏ, bị loại khỏi" },
+                { express: "boucler ses fins de mois", sens: "kiếm đủ sống, xoay sở tài chính" },
+                { express: "faire face à", sens: "đối mặt với" },
+                { express: "couper dans les budgets", sens: "cắt giảm ngân sách" },
+                { express: "dépendre de", sens: "phụ thuộc vào" },
+                { express: "mener une grève", sens: "tổ chức đình công" },
+                { express: "avoir des conséquences", sens: "có hậu quả" }
+            ],
+            30: [
+                { express: "être en l’état", sens: "ở trạng thái, ở điều kiện" },
+                { express: "faire l’objet de", sens: "trở thành đối tượng của" },
+                { express: "prendre en compte", sens: "xem xét, cân nhắc" },
+                { express: "s’engager personnellement", sens: "cam kết cá nhân" },
+                { express: "ne pas avoir sa place", sens: "không có chỗ đứng" },
+                { express: "avoir des réserves sur", sens: "có sự nghi ngờ về" },
+                { express: "mettre en avant", sens: "làm nổi bật, đưa ra" }
+            ]
+        };
+
+        // Lấy ID bài đọc từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id');
+
+        // Hiển thị tiêu đề bài đọc
+        if (articles[articleId]) {
+            document.getElementById('title').innerText = articles[articleId].title;
+        } else {
+            document.getElementById('title').innerText = "Article non trouvé";
+        }
+
+        // Hiển thị danh sách từ vựng
+        const vocabList = document.getElementById("vocab-list");
+        if (vocabData[articleId]) {
+            vocabData[articleId].forEach((item, index) => {
+                let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${item.express}</td>
+                <td>${item.sens}</td>
+            </tr>`;
+                vocabList.innerHTML += row;
+            });
+        } else {
+            vocabList.innerHTML = "<tr><td colspan='3'>Aucune donnée disponible.</td></tr>";
+        }
+
+        // Nút trở về
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+
+</html>
