@@ -52,6 +52,20 @@
             border-radius: 5px;
             margin-left: 10px;
         }
+
+        /* CSS cho ảnh nền */
+        .background-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .background-container img {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -77,6 +91,11 @@
                 <option value="education">Éducation</option>
             </select>
             <button onclick="goToCategory()">Explorer</button>
+        </div>
+
+        <!-- Ảnh nền phía dưới bộ lọc -->
+        <div class="background-container">
+            <img src="assets/images/readingpic.jpg" alt="Image d'illustration">
         </div>
     </div>
 
