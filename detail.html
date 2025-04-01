@@ -108,6 +108,9 @@
                 <button class="btn btn-white" onclick="goToTranslate()">📄 TRADUCTION</button>
                 <button class="btn btn-red" onclick="showVocabulary()">📖 VOCABULAIRE EXPLIQUÉ</button>
             </div>
+            <div class="buttons">
+                <button class="btn btn-red" onclick="goToSummary()">📄 PRISE DE NOTES</button>
+            </div>
     </div>
 
     <script>
@@ -283,6 +286,10 @@
 
         function goToTranslate() {
             window.location.href = `translate.html?id=${articleId}`;
+        }
+
+        function goToSummary() {
+            window.location.href = `summary.html?id=${articleId}`;
         }
 
         function showVocabulary() {
